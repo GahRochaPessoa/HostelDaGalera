@@ -60,12 +60,8 @@ export const MenuOption = styled.div`
     align-items:center;
     justify-content:center;
     border-top: 1px solid #000;
-
-    .iconStyle{
-        height:30px;
-        width:30px;
-        color: red;
-    }
+    
+    
     p{
         font-size:25px;
     }
@@ -73,5 +69,4 @@ export const MenuOption = styled.div`
     :hover{
         background-color:#E1E1E1;
     }
-
 `;

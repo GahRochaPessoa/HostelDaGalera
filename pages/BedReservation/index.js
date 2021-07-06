@@ -1,14 +1,14 @@
 import { Header } from '../../components/Header';
 import { Container } from '../../components/Container';
 import * as Styles from './styles';
-import { CreateGuest } from '../../components/Form/Guest';
+import { BedForm } from '../../components/Form/Bed';
 
-export default function Register() {
+export default function BedReservation() {
   return (
     <Container>
-      <Header header="Registro" />
+      <Header header="Registro de Cama" />
       <Styles.WrapperContent>
-        <CreateGuest />
+        <BedForm />
       </Styles.WrapperContent>
     </Container>
   );

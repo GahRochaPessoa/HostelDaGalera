@@ -1,14 +1,14 @@
 import { Header } from '../../components/Header';
 import { Container } from '../../components/Container';
 import * as Styles from './styles';
-import { CreateGuest } from '../../components/Form/Guest';
+import { CreateRoom } from '../../components/Form/Room';
 
-export default function Register() {
+export default function RoomRegistration() {
   return (
     <Container>
-      <Header header="Registro" />
+      <Header header="Registro Quartos" />
       <Styles.WrapperContent>
-        <CreateGuest />
+        <CreateRoom />
       </Styles.WrapperContent>
     </Container>
   );
