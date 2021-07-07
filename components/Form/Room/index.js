@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Modal } from '../../Modal';
 import * as Styles from './styles';
-/* import { api } from '../../../../pages/api/api'; */
+import { api } from '../../../pages/api/api';
 
 export function RoomForm() {
+  const [handleRoom, setHandleRoom] = useState();
   const [isRegister, setIsRegister] = useState(false);
   const [isRegisterUpdate, setIsRegisterUpdate] = useState(false);
   const [isRegisterDelete, setIsRegisterDelete] = useState(false);
@@ -11,15 +12,36 @@ export function RoomForm() {
   const [isRoomName, setIsRoomName] = useState('');
   const [isRoomDescription, setIsRoomDescription] = useState('');
 
-  async function registerUser(event) {
-    event.preventDefault();
-    /*    const response = await api.post('funcionario', {
-      ...transactionInput,
-      createdAt: new Date(),
-    });
-    const { transaction } = response.data;
+  useEffect(() => {
+    async function GetRoomData() {
+      const { data: RoomData } = await api.get('/quarto/');
+      if (!RoomData) {
+        return {
+          notFound: true,
+        };
+      }
+      setHandleRoom(RoomData);
+      return {
+        props: { RoomData }, // will be passed to the page component as props
+      };
+    }
+    GetRoomData();
+  }, []);
 
-    setTransactions([...transactions, transaction]); */
+  async function registerRoom(event) {
+    event.preventDefault();
+    const dataRoom = {
+      tipo_quarto: isRoomType,
+      nome: isRoomName,
+      descricao: isRoomDescription,
+    };
+    try {
+      await api.post('/quarto/', dataRoom);
+      alert('Quarto Cadastrado com Sucesso');
+      setIsRegister(false);
+    } catch (error) {
+      alert('Error ao Cadastrar Quarto, tente novamente');
+    }
   }
 
   function onRegisterClose() {
@@ -35,8 +57,7 @@ export function RoomForm() {
     <>
       {isRegister === true ? (
         <Modal onClose={onRegisterClose} visible={isRegister}>
-          <Styles.Form onSubmit={registerUser}>
-            {console.log(isRoomType)}
+          <Styles.Form onSubmit={registerRoom}>
             <select onChange={(e) => { setIsRoomType(e.target.value); }}>
               <option value="1">
                 Misto
@@ -49,7 +70,7 @@ export function RoomForm() {
               </option>
             </select>
             <input id="name" type="text" required placeholder="Nome" onChange={(e) => setIsRoomName(e.target.value)} />
-            <input id="description" type="text" placeholder="Descrição" required onChange={(e) => setIsRoomDescription(e.target.value)} />
+            <textarea id="description" type="text" placeholder="Descrição" required onChange={(e) => setIsRoomDescription(e.target.value)} />
             <button type="submit">Register</button>
           </Styles.Form>
         </Modal>

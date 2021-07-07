@@ -1,9 +1,22 @@
 import { useState } from 'react';
 import { Modal } from '../../Modal';
 import * as Styles from './styles';
-/* import { api } from '../../../../pages/api/api'; */
+import { api } from '../../../pages/api/api';
 
-export function CreateGuest() {
+export async function getStaticProps() {
+  const response = await api.get('/hospede/');
+  const { data } = response;
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: { data }, // will be passed to the page component as props
+  };
+}
+
+export function CreateGuest({ data }) {
   const [isRegister, setIsRegister] = useState(false);
   const [isRegisterUpdate, setIsRegisterUpdate] = useState(false);
   const [isRegisterDelete, setIsRegisterDelete] = useState(false);
@@ -14,15 +27,22 @@ export function CreateGuest() {
   const [isGuestTelefone, setIsGuestTelefone] = useState('');
   const [isGuestBirth, setIsGuestBirth] = useState('');
 
-  async function registerUser(event) {
+  async function registerGuest(event) {
     event.preventDefault();
-    /*    const response = await api.post('funcionario', {
-      ...transactionInput,
-      createdAt: new Date(),
-    });
-    const { transaction } = response.data;
-
-    setTransactions([...transactions, transaction]); */
+    const dataGuest = {
+      nome: isGuestName,
+      cpf: isGuestCPF,
+      email: isGuestEmail,
+      telefone: isGuestTelefone,
+      data_nascimento: isGuestBirth,
+    };
+    try {
+      await api.post('/hospede/', dataGuest);
+      alert('Hospede Cadastrado com Sucesso');
+      setIsRegister(false);
+    } catch (error) {
+      alert('Error ao Cadastrar novo hóspede, tente novamente');
+    }
   }
 
   function onRegisterClose() {
@@ -38,7 +58,7 @@ export function CreateGuest() {
     <>
       {isRegister === true ? (
         <Modal onClose={onRegisterClose} visible={isRegister}>
-          <Styles.Form onSubmit={registerUser}>
+          <Styles.Form onSubmit={registerGuest}>
             <input id="name" type="text" required placeholder="Nome" onChange={(e) => setIsGuestName(e.target.value)} />
             <input id="cpf" type="text" placeholder="CPF" required onChange={(e) => setIsGuestCPF(e.target.value)} />
             <input id="email" type="text" placeholder="Email" required onChange={(e) => setIsGuestEmail(e.target.value)} />
@@ -61,7 +81,7 @@ export function CreateGuest() {
 
       {isRegisterDelete === true ? (
         <Modal onClose={onDeleteClose} visible={isRegisterDelete}>
-          <Styles.Form onSubmit={registerUser}>
+          <Styles.Form onSubmit={registerGuest}>
             <select onChange={(e) => { setIsOpen(e.target.value); }}>
               <option value="1">
                 Beliche

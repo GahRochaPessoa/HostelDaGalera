@@ -1,30 +1,25 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/button-has-type */
 import { useState } from 'react';
 import { Modal } from '../../Modal';
 import * as Styles from './styles';
-/* import { api } from '../../../../pages/api/api'; */
+import { UserProvider } from '../../../contexts/users';
+import { api } from '../../../pages/api/api';
 
 export function CreateEmployee() {
+  const [handleEmployeeData, setHandleEmployeeData] = useState([]);
+  const [handleEmployeeFields, setHandleEmployeeFields] = useState();
   const [isRegister, setIsRegister] = useState(false);
   const [isRegisterUpdate, setIsRegisterUpdate] = useState(false);
   const [isRegisterDelete, setIsRegisterDelete] = useState(false);
+  const [isDelete, setIsDelete] = useState();
+  const [isUpdate, setIsUpdate] = useState(2);
   const [isUserType, setIsUserType] = useState('');
-  const [isOpen, setIsOpen] = useState('');
   const [isUserName, setIsUserName] = useState('');
   const [isUserCPF, setIsUserCPF] = useState('');
   const [isUserEmail, setIsUserEmail] = useState('');
   const [isUserTelefone, setIsUserTelefone] = useState('');
   const [isUserBirth, setisUserBirth] = useState('');
-
-  async function registerUser(event) {
-    event.preventDefault();
-    /*    const response = await api.post('funcionario', {
-      ...transactionInput,
-      createdAt: new Date(),
-    });
-    const { transaction } = response.data;
-
-    setTransactions([...transactions, transaction]); */
-  }
 
   function onRegisterClose() {
     setIsRegister(false);
@@ -35,13 +30,74 @@ export function CreateEmployee() {
   function onDeleteClose() {
     setIsRegisterDelete(false);
   }
+  async function registerUser(event) {
+    event.preventDefault();
+    const dataEmployee = {
+      tipo_funcionario: isUserType,
+      nome: isUserName,
+      cpf: isUserCPF,
+      email: isUserEmail,
+      telefone: isUserTelefone,
+      data_nascimento: isUserBirth,
+    };
+    try {
+      await api.post('/funcionario/', dataEmployee);
+      alert('Funcionário Cadastrado com Sucesso');
+      setIsRegister(false);
+    } catch (error) {
+      alert('Error ao Cadastrar novo funcionário, tente novamente');
+    }
+  }
+  async function GetEmployeeData() {
+    const { data: employeeData } = await api.get('/funcionario/');
+    if (!employeeData) {
+      return {
+        notFound: true,
+      };
+    }
+    setHandleEmployeeData(employeeData);
+  }
+
+  async function deleteEmployee(event) {
+    event.preventDefault();
+    try {
+      await api.delete(`/funcionario/${isDelete}/`);
+      alert('Funcionário Deletado com Sucesso');
+      await GetEmployeeData();
+      setIsRegister(false);
+    } catch (error) {
+      alert('Error ao apagar novo funcionário, tente novamente');
+    }
+  }
+
+  async function updateEmployee(event) {
+    event.preventDefault();
+    try {
+      await api.delete(`/funcionario/${isDelete}/`);
+      alert('Funcionário Deletado com Sucesso');
+
+      setIsRegister(false);
+    } catch (error) {
+      alert('Error ao apagar novo funcionário, tente novamente');
+    }
+  }
+
+  async function updateEmployeeFields() {
+    try {
+      const { data: employeeFields } = await api.get(`/funcionario/${isUpdate}/`);
+      setHandleEmployeeFields(employeeFields);
+    } catch (error) {
+      alert('Error ao apagar novo funcionário, tente novamente');
+    }
+  }
+
   return (
-    <>
+    <UserProvider value={handleEmployeeData}>
       {isRegister === true ? (
         <Modal onClose={onRegisterClose} visible={isRegister}>
           <Styles.Form onSubmit={registerUser}>
             {console.log(isUserType)}
-            <select onChange={(e) => { setIsUserType(e.target.value); }}>
+            <select value={isUserType} onChange={(e) => { setIsUserType(e.target.value); }}>
               <option value="1">
                 Gerente
               </option>
@@ -61,31 +117,51 @@ export function CreateEmployee() {
 
       {isRegisterUpdate === true ? (
         <Modal onClose={onUpdateClose} visible={isRegisterUpdate}>
-          <p>Update</p>
-          <p>teste</p>
-          <p>teste</p>
-          <p>teste</p>
-          <p>teste</p>
+          <Styles.Form onSubmit={updateEmployee}>
+            <select
+              value={isUpdate}
+              onChange={(e) => {
+                setIsUpdate(e.target.value);
+                updateEmployeeFields();
+              }}
+            >
+              {handleEmployeeData.map((employee) => (
+                <option
+                  key={employee.id}
+                  value={employee.id}
+                >
+                  {employee.nome}
+                </option>
+              ))}
+            </select>
+            { console.log(handleEmployeeFields)}
+
+            <button type="submit">Register</button>
+          </Styles.Form>
         </Modal>
       ) : null}
 
       {isRegisterDelete === true ? (
         <Modal onClose={onDeleteClose} visible={isRegisterDelete}>
-          <Styles.Form onSubmit={registerUser}>
-            <select onChange={(e) => { setIsOpen(e.target.value); }}>
-              <option value="1">
-                Beliche
-              </option>
-              <option value="2">
-                Solteiro
-              </option>
-              <option value="3">
-                Casal
-              </option>
+          <Styles.Form onSubmit={deleteEmployee}>
+            <select
+              value={isDelete}
+              onChange={(e) => {
+                setIsDelete(e.target.value);
+              }}
+            >
+              {handleEmployeeData.map((employee) => (
+                <option
+                  key={employee.id}
+                  value={employee.id}
+                >
+                  {employee.nome}
+                </option>
+              ))}
             </select>
             <Styles.ButtonDeleteContainer>
               <button type="submit">Apagar</button>
-              <button type="submit">Cancelar</button>
+              <button type="reset" onClick={() => { setIsRegisterDelete(false); }}>Cancelar</button>
             </Styles.ButtonDeleteContainer>
           </Styles.Form>
         </Modal>
@@ -93,8 +169,8 @@ export function CreateEmployee() {
       <Styles.ContainerButtons>
         <Styles.Button value="Cadastrar" variant="filled" type="submit" backgroundColor="teal" onClick={() => { setIsRegister(!isRegister); }} />
         <Styles.Button value="Alterar" variant="filled" type="submit" backgroundColor="teal" onClick={() => { setIsRegisterUpdate(!isRegisterUpdate); }} />
-        <Styles.Button value="Excluir" variant="filled" type="submit" backgroundColor="teal" onClick={() => { setIsRegisterDelete(!isRegisterDelete); }} />
+        <Styles.Button value="Excluir" variant="filled" type="submit" backgroundColor="teal" onClick={() => { setIsRegisterDelete(!isRegisterDelete); GetEmployeeData(); }} />
       </Styles.ContainerButtons>
-    </>
+    </UserProvider>
   );
 }
