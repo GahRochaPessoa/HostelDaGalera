@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/button-has-type */
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Modal } from '../../Modal';
 import * as Styles from './styles';
 import { UserProvider } from '../../../contexts/users';
@@ -21,7 +21,6 @@ export function BedForm() {
   const [isBedName, setIsBedName] = useState('');
   const [isBedDescription, setIsBedDescription] = useState('');
   const [isBedValue, setIsBedValue] = useState('');
-  const ref = useRef();
 
   function onRegisterClose() {
     setIsRegister(false);
@@ -94,9 +93,13 @@ export function BedForm() {
   }
 
   async function updateBedFields() {
-    const { data: employeeFields } = await api.get(`/cama/${isUpdate}/`);
-    setHandleEmployeeFields(employeeFields);
+    const { data: bedFields } = await api.get(`/cama/${isUpdate}/`);
+    setHandleEmployeeFields(bedFields);
   }
+
+  useEffect(() => {
+    updateBedFields();
+  }, [isUpdate]);
 
   return (
     <UserProvider value={handleBedData}>
@@ -162,58 +165,92 @@ export function BedForm() {
           <Styles.Form onSubmit={updateBed}>
             <select
               onChange={(e) => {
+                console.log('target que vem >>>', e.target.value);
                 setIsUpdate(e.target.value);
-                updateBedFields();
               }}
             >
-              {/* {console.log('Gabs', isUpdate)} */}
-              {handleBedData.map((bed) => (
-
+              {handleBedData.map((employee) => (
                 <option
-                  key={bed.id}
-                  value={bed.id}
+                  key={employee.id}
+                  value={employee.id}
+                  ref={ref}
                 >
-                  {bed.id}
+                  {employee.nome}
                 </option>
 
               ))}
             </select>
+            <select
+              value={handleBedFields.tipo_cama}
+              onChange={(e) => {
+                setIsBedType(e.target.value);
+              }}
+            >
+              <option value="1">
+                Solteiro
+              </option>
+              <option value="2">
+                Beliche
+              </option>
+              <option value="3">
+                Casal
+              </option>
+            </select>
 
+            <select
+              value={handleBedFields.quarto}
+              onChange={(e) => {
+                setIsBedRoomType(e.target.value);
+              }}
+            >
+              {handleRoomData.map((room) => (
+                <option
+                  key={room.id}
+                  value={room.id}
+                >
+                  {room.nome}
+                </option>
+              ))}
+            </select>
+
+            <select
+              value={handleBedFields.status}
+              onChange={(e) => {
+                setIsBedStatus(e.target.value);
+              }}
+            >
+              <option value="l">
+                Livre
+              </option>
+              <option value="o">
+                Ocupada
+              </option>
+            </select>
             <input
               id="name"
+              value={handleBedFields.nome}
               type="text"
-              value={handleEmployeeFields.nome}
               required
               placeholder="Nome"
-              onChange={(e) => setIsUserName(e.target.value)}
+              onChange={
+              (e) => setIsBedName(e.target.value)
+}
+            />
+            <textarea
+              id="Descricao"
+              type="text"
+              value={handleBedFields.descricao}
+              placeholder="Descrição"
+              required
+              onChange={(e) => setIsBedDescription(e.target.value)}
             />
             <input
-              id="cpf"
+              id="Valor"
+              value={handleBedFields.value}
               type="text"
-              placeholder="CPF"
+              placeholder="Valor"
               required
-              onChange={(e) => setIsUserCPF(e.target.value)}
-            />
-            <input
-              id="email"
-              type="text"
-              placeholder="Email"
-              required
-              onChange={(e) => setIsUserEmail(e.target.value)}
-            />
-            <input
-              id="telefone"
-              type="text"
-              placeholder="Telefone"
-              required
-              onChange={(e) => setIsUserTelefone(e.target.value)}
-            />
-            <input
-              id="dataNascimento"
-              type="text"
-              placeholder="Data Nascimento"
-              required
-              onChange={(e) => { setisUserBirth(e.target.value); }}
+              onChange={(e) => setIsBedValue(e.target.value)}
             />
             <button type="submit">Alterar</button>
 
