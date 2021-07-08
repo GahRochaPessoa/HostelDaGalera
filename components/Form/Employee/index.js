@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/button-has-type */
-import { useState } from 'react';
+import {
+  useState, useRef, useEffect,
+} from 'react';
 import { Modal } from '../../Modal';
 import * as Styles from './styles';
 import { UserProvider } from '../../../contexts/users';
@@ -8,7 +10,7 @@ import { api } from '../../../pages/api/api';
 
 export function CreateEmployee() {
   const [handleEmployeeData, setHandleEmployeeData] = useState([]);
-  const [handleEmployeeFields, setHandleEmployeeFields] = useState();
+  const [handleEmployeeFields, setHandleEmployeeFields] = useState({});
   const [isRegister, setIsRegister] = useState(false);
   const [isRegisterUpdate, setIsRegisterUpdate] = useState(false);
   const [isRegisterDelete, setIsRegisterDelete] = useState(false);
@@ -21,6 +23,10 @@ export function CreateEmployee() {
   const [isUserTelefone, setIsUserTelefone] = useState('');
   const [isUserBirth, setisUserBirth] = useState('');
 
+  const ref = useRef();
+  console.log(handleEmployeeData);
+  console.log('update', isUpdate);
+
   function onRegisterClose() {
     setIsRegister(false);
   }
@@ -30,6 +36,7 @@ export function CreateEmployee() {
   function onDeleteClose() {
     setIsRegisterDelete(false);
   }
+
   async function registerUser(event) {
     event.preventDefault();
     const dataEmployee = {
@@ -73,7 +80,7 @@ export function CreateEmployee() {
   async function updateEmployee(event) {
     event.preventDefault();
     try {
-      await api.delete(`/funcionario/${isDelete}/`);
+      await api.put(`/funcionario/${isUpdate}/`, data);
       alert('Funcionário Deletado com Sucesso');
 
       setIsRegister(false);
@@ -83,13 +90,15 @@ export function CreateEmployee() {
   }
 
   async function updateEmployeeFields() {
-    try {
-      const { data: employeeFields } = await api.get(`/funcionario/${isUpdate}/`);
-      setHandleEmployeeFields(employeeFields);
-    } catch (error) {
-      alert('Error ao apagar novo funcionário, tente novamente');
-    }
+    console.log('isUpdate >>>', isUpdate);
+    const { data: employeeFields } = await api.get(`/funcionario/${isUpdate}/`);
+    console.log(employeeFields);
+    setHandleEmployeeFields(employeeFields);
   }
+
+  useEffect(() => {
+    updateEmployeeFields();
+  }, [isUpdate]);
 
   return (
     <UserProvider value={handleEmployeeData}>
@@ -97,7 +106,14 @@ export function CreateEmployee() {
         <Modal onClose={onRegisterClose} visible={isRegister}>
           <Styles.Form onSubmit={registerUser}>
             {console.log(isUserType)}
-            <select value={isUserType} onChange={(e) => { setIsUserType(e.target.value); }}>
+            <select
+              value={isUserType}
+              onChange={
+                (e) => {
+                  setIsUserType(e.target.value);
+                }
+}
+            >
               <option value="1">
                 Gerente
               </option>
@@ -110,7 +126,7 @@ export function CreateEmployee() {
             <input id="email" type="text" placeholder="Email" required onChange={(e) => setIsUserEmail(e.target.value)} />
             <input id="telefone" type="text" placeholder="Telefone" required onChange={(e) => setIsUserTelefone(e.target.value)} />
             <input id="dataNascimento" type="text" placeholder="Data Nascimento" required onChange={(e) => { setisUserBirth(e.target.value); }} />
-            <button type="submit">Register</button>
+            <button type="submit">Registrar</button>
           </Styles.Form>
         </Modal>
       ) : null}
@@ -118,25 +134,69 @@ export function CreateEmployee() {
       {isRegisterUpdate === true ? (
         <Modal onClose={onUpdateClose} visible={isRegisterUpdate}>
           <Styles.Form onSubmit={updateEmployee}>
+
             <select
-              value={isUpdate}
               onChange={(e) => {
+                console.log('target que vem >>>', e.target.value);
                 setIsUpdate(e.target.value);
-                updateEmployeeFields();
               }}
             >
+
               {handleEmployeeData.map((employee) => (
+
                 <option
                   key={employee.id}
                   value={employee.id}
+                  ref={ref}
                 >
                   {employee.nome}
                 </option>
+
               ))}
             </select>
-            { console.log(handleEmployeeFields)}
 
-            <button type="submit">Register</button>
+            <input
+              id="name"
+              type="text"
+              value={handleEmployeeFields.nome}
+              required
+              placeholder="Nome"
+              onChange={(e) => setIsUserName(e.target.value)}
+            />
+            <input
+              id="cpf"
+              type="text"
+              value={handleEmployeeFields.cpf}
+              placeholder="CPF"
+              required
+              onChange={(e) => setIsUserCPF(e.target.value)}
+            />
+            <input
+              id="email"
+              type="text"
+              value={handleEmployeeFields.email}
+              placeholder="Email"
+              required
+              onChange={(e) => setIsUserEmail(e.target.value)}
+            />
+            <input
+              id="telefone"
+              type="text"
+              placeholder="Telefone"
+              value={handleEmployeeFields.telefone}
+              required
+              onChange={(e) => setIsUserTelefone(e.target.value)}
+            />
+            <input
+              id="dataNascimento"
+              type="text"
+              placeholder="Data Nascimento"
+              required
+              value={handleEmployeeFields.data_nascimento}
+              onChange={(e) => { setisUserBirth(e.target.value); }}
+            />
+            <button type="submit">Alterar</button>
+
           </Styles.Form>
         </Modal>
       ) : null}
@@ -161,15 +221,38 @@ export function CreateEmployee() {
             </select>
             <Styles.ButtonDeleteContainer>
               <button type="submit">Apagar</button>
-              <button type="reset" onClick={() => { setIsRegisterDelete(false); }}>Cancelar</button>
+              <button
+                type="reset"
+                onClick={() => { setIsRegisterDelete(false); }}
+              >
+                Cancelar
+              </button>
             </Styles.ButtonDeleteContainer>
           </Styles.Form>
         </Modal>
       ) : null}
       <Styles.ContainerButtons>
-        <Styles.Button value="Cadastrar" variant="filled" type="submit" backgroundColor="teal" onClick={() => { setIsRegister(!isRegister); }} />
-        <Styles.Button value="Alterar" variant="filled" type="submit" backgroundColor="teal" onClick={() => { setIsRegisterUpdate(!isRegisterUpdate); }} />
-        <Styles.Button value="Excluir" variant="filled" type="submit" backgroundColor="teal" onClick={() => { setIsRegisterDelete(!isRegisterDelete); GetEmployeeData(); }} />
+        <Styles.Button
+          value="Cadastrar"
+          variant="filled"
+          type="submit"
+          backgroundColor="teal"
+          onClick={() => { setIsRegister(!isRegister); GetEmployeeData(); }}
+        />
+        <Styles.Button
+          value="Alterar"
+          variant="filled"
+          type="submit"
+          backgroundColor="teal"
+          onClick={() => { setIsRegisterUpdate(!isRegisterUpdate); GetEmployeeData(); }}
+        />
+        <Styles.Button
+          value="Excluir"
+          variant="filled"
+          type="submit"
+          backgroundColor="teal"
+          onClick={() => { setIsRegisterDelete(!isRegisterDelete); GetEmployeeData(); }}
+        />
       </Styles.ContainerButtons>
     </UserProvider>
   );
