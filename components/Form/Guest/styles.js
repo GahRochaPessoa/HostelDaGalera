@@ -3,7 +3,7 @@ import { Input } from '@chakra-ui/react';
 
 export const Button = styled(Input)`
     width:40%;
-    background-color: teal;
+    background-color: #6558f5;
     margin-bottom: 12px;
     color:white;
     z-index: 1;
@@ -39,7 +39,8 @@ export const Form = styled.form`
         font-size: 20px;
         height: 50px;
         width: 40%;
-        background-color: orange;
+        background-color: #6558f5;
+        border-radius: 5px;
     }
 `;
 

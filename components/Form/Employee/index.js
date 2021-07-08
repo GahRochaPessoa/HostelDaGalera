@@ -103,7 +103,7 @@ export function CreateEmployee() {
   return (
     <UserProvider value={handleEmployeeData}>
       {isRegister === true ? (
-        <Modal onClose={onRegisterClose} visible={isRegister}>
+        <Modal onClose={onRegisterClose} header="Registrar Empregado" visible={isRegister}>
           <Styles.Form onSubmit={registerUser}>
             {console.log(isUserType)}
             <select
@@ -132,7 +132,7 @@ export function CreateEmployee() {
       ) : null}
 
       {isRegisterUpdate === true ? (
-        <Modal onClose={onUpdateClose} visible={isRegisterUpdate}>
+        <Modal onClose={onUpdateClose} header="Editar Empregado" visible={isRegisterUpdate}>
           <Styles.Form onSubmit={updateEmployee}>
 
             <select
@@ -202,7 +202,7 @@ export function CreateEmployee() {
       ) : null}
 
       {isRegisterDelete === true ? (
-        <Modal onClose={onDeleteClose} visible={isRegisterDelete}>
+        <Modal onClose={onDeleteClose} header="Excluir Empregado" visible={isRegisterDelete}>
           <Styles.Form onSubmit={deleteEmployee}>
             <select
               value={isDelete}
@@ -236,21 +236,21 @@ export function CreateEmployee() {
           value="Cadastrar"
           variant="filled"
           type="submit"
-          backgroundColor="teal"
+          backgroundColor="#6558f5"
           onClick={() => { setIsRegister(!isRegister); GetEmployeeData(); }}
         />
         <Styles.Button
           value="Alterar"
           variant="filled"
           type="submit"
-          backgroundColor="teal"
+          backgroundColor="#6558f5"
           onClick={() => { setIsRegisterUpdate(!isRegisterUpdate); GetEmployeeData(); }}
         />
         <Styles.Button
           value="Excluir"
           variant="filled"
           type="submit"
-          backgroundColor="teal"
+          backgroundColor="#6558f5"
           onClick={() => { setIsRegisterDelete(!isRegisterDelete); GetEmployeeData(); }}
         />
       </Styles.ContainerButtons>

@@ -1,10 +1,12 @@
 import Link from 'next/link';
 
 import { IoMdPersonAdd } from 'react-icons/io';
+import { FaBed, FaDoorOpen } from 'react-icons/fa';
+import { MdWork } from 'react-icons/md';
 import { IoNewspaperOutline, IoArrowUndoOutline } from 'react-icons/io5';
-import { BiCalendar } from 'react-icons/bi';
+/* import { BiCalendar } from 'react-icons/bi';
 import { GiReceiveMoney } from 'react-icons/gi';
-import { VscSignOut, VscSignIn } from 'react-icons/vsc';
+import { VscSignOut, VscSignIn } from 'react-icons/vsc'; */
 
 import * as Styles from '../styles';
 
@@ -14,35 +16,35 @@ export function MenuEmployer() {
       <Styles.MenuOptionsContainer>
         <Link href="/RegisterEmployee">
           <Styles.MenuOption>
-            <IoMdPersonAdd style={{
+            <MdWork style={{
               height: 30,
               width: 30,
               marginRight: 10,
             }}
             />
-            <p>Registro Funcionario</p>
+            <p>Funcionario</p>
           </Styles.MenuOption>
         </Link>
         <Link href="/RoomRegister">
           <Styles.MenuOption>
-            <IoMdPersonAdd style={{
+            <FaDoorOpen style={{
               height: 30,
               width: 30,
               marginRight: 10,
             }}
             />
-            <p>Registro Quarto</p>
+            <p>Quarto</p>
           </Styles.MenuOption>
         </Link>
         <Link href="/BedReservation">
           <Styles.MenuOption>
-            <IoMdPersonAdd style={{
+            <FaBed style={{
               height: 30,
               width: 30,
               marginRight: 10,
             }}
             />
-            <p>Registro de Cama</p>
+            <p>Cama</p>
           </Styles.MenuOption>
         </Link>
         <Link href="/Register">
@@ -56,7 +58,7 @@ export function MenuEmployer() {
             <p>Hospedes</p>
           </Styles.MenuOption>
         </Link>
-        <Link href="/Reservation">
+        {/* <Link href="/Reservation">
           <Styles.MenuOption>
             <BiCalendar style={{
               height: 30,
@@ -110,7 +112,7 @@ export function MenuEmployer() {
             />
             <p>Relatórios</p>
           </Styles.MenuOption>
-        </Link>
+        </Link> */}
         <Link href="/">
           <Styles.MenuOption>
             <IoArrowUndoOutline style={{

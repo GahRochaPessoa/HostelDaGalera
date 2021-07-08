@@ -14,7 +14,7 @@ export const WrapperContent = styled.div`
 
 export const Button = styled(Input)`
     width:40%;
-    background-color: teal;
+    background-color: #6558f5;
     margin-bottom: 12px;
     color:white;
     z-index: 1;

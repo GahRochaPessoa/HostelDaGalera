@@ -92,7 +92,7 @@ export function CreateGuest() {
   return (
     <UserProvider value={handleGuestData}>
       {isRegister === true ? (
-        <Modal onClose={onRegisterClose} visible={isRegister}>
+        <Modal onClose={onRegisterClose} header="Registrar Hospede" visible={isRegister}>
           <Styles.Form onSubmit={registerUser}>
             <input
               id="name"
@@ -135,7 +135,7 @@ export function CreateGuest() {
       ) : null}
 
       {isRegisterUpdate === true ? (
-        <Modal onClose={onUpdateClose} visible={isRegisterUpdate}>
+        <Modal onClose={onUpdateClose} header="Editar Hospede" visible={isRegisterUpdate}>
           <Styles.Form onSubmit={updateGuest}>
             <select
               onChange={(e) => {
@@ -202,7 +202,7 @@ export function CreateGuest() {
       ) : null}
 
       {isRegisterDelete === true ? (
-        <Modal onClose={onDeleteClose} visible={isRegisterDelete}>
+        <Modal onClose={onDeleteClose} header="Excluir Hospede" visible={isRegisterDelete}>
           <Styles.Form onSubmit={deleteGuest}>
             <select
               value={isDelete}
@@ -236,21 +236,21 @@ export function CreateGuest() {
           value="Cadastrar"
           variant="filled"
           type="submit"
-          backgroundColor="teal"
+          backgroundColor="#6558f5"
           onClick={() => { setIsRegister(!isRegister); GetGuestData(); }}
         />
         <Styles.Button
           value="Alterar"
           variant="filled"
           type="submit"
-          backgroundColor="teal"
+          backgroundColor="#6558f5"
           onClick={() => { setIsRegisterUpdate(!isRegisterUpdate); GetGuestData(); }}
         />
         <Styles.Button
           value="Excluir"
           variant="filled"
           type="submit"
-          backgroundColor="teal"
+          backgroundColor="#6558f5"
           onClick={() => { setIsRegisterDelete(!isRegisterDelete); GetGuestData(); }}
         />
       </Styles.ContainerButtons>

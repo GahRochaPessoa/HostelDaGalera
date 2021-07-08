@@ -104,7 +104,7 @@ export function BedForm() {
   return (
     <UserProvider value={handleBedData}>
       {isRegister === true ? (
-        <Modal onClose={onRegisterClose} visible={isRegister}>
+        <Modal onClose={onRegisterClose} header="Registrar Cama" visible={isRegister}>
           <Styles.Form onSubmit={registerBed}>
             {console.log(isBedType)}
             <select
@@ -161,7 +161,7 @@ export function BedForm() {
       ) : null}
 
       {isRegisterUpdate === true ? (
-        <Modal onClose={onUpdateClose} visible={isRegisterUpdate}>
+        <Modal onClose={onUpdateClose} header="Editar Cama" visible={isRegisterUpdate}>
           <Styles.Form onSubmit={updateBed}>
             <select
               onChange={(e) => {
@@ -259,7 +259,7 @@ export function BedForm() {
       ) : null}
 
       {isRegisterDelete === true ? (
-        <Modal onClose={onDeleteClose} visible={isRegisterDelete}>
+        <Modal onClose={onDeleteClose} header="Excluir Cama" visible={isRegisterDelete}>
           <Styles.Form onSubmit={deleteBed}>
             <select
               value={isDelete}
@@ -293,21 +293,21 @@ export function BedForm() {
           value="Cadastrar"
           variant="filled"
           type="submit"
-          backgroundColor="teal"
+          backgroundColor="#6558f5"
           onClick={() => { setIsRegister(!isRegister); GetBedData(); GetRoomData(); }}
         />
         <Styles.Button
           value="Alterar"
           variant="filled"
           type="submit"
-          backgroundColor="teal"
+          backgroundColor="#6558f5"
           onClick={() => { setIsRegisterUpdate(!isRegisterUpdate); GetBedData(); GetRoomData(); }}
         />
         <Styles.Button
           value="Excluir"
           variant="filled"
           type="submit"
-          backgroundColor="teal"
+          backgroundColor="#6558f5"
           onClick={() => { setIsRegisterDelete(!isRegisterDelete); GetBedData(); GetRoomData(); }}
         />
       </Styles.ContainerButtons>

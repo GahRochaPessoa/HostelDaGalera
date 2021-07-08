@@ -78,9 +78,9 @@ export function SelectChoices() {
         </Modal>
       ) : null}
       <Styles.ContainerButtons>
-        <Styles.Button value="Cadastrar" variant="filled" type="submit" backgroundColor="teal" onClick={() => { setIsRegister(!isRegister); }} />
-        <Styles.Button value="Alterar" variant="filled" type="submit" backgroundColor="teal" onClick={() => { setIsRegisterUpdate(!isRegisterUpdate); }} />
-        <Styles.Button value="Excluir" variant="filled" type="submit" backgroundColor="teal" onClick={() => { setIsRegisterDelete(!isRegisterDelete); }} />
+        <Styles.Button value="Cadastrar" variant="filled" type="submit" backgroundColor="#6558f5" onClick={() => { setIsRegister(!isRegister); }} />
+        <Styles.Button value="Alterar" variant="filled" type="submit" backgroundColor="#6558f5" onClick={() => { setIsRegisterUpdate(!isRegisterUpdate); }} />
+        <Styles.Button value="Excluir" variant="filled" type="submit" backgroundColor="#6558f5" onClick={() => { setIsRegisterDelete(!isRegisterDelete); }} />
       </Styles.ContainerButtons>
     </>
   );

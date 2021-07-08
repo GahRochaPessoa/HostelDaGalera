@@ -18,7 +18,7 @@ export default function Home() {
         <Input placeholder="Usuário" variant="filled" mb={6} type="name" value={employeeUser} onChange={(e) => setEmployeeUser(e.target.value)} />
         <Input placeholder="Password" variant="filled" mb={6} type="password" />
         <Link href="/Home">
-          <Input value="Login" variant="filled" mb={6} type="submit" backgroundColor="teal" color="white" onClick={() => { setUser(employeeUser); }} />
+          <Input value="Login" variant="filled" mb={6} type="submit" backgroundColor="#6558f5" color="white" onClick={() => { setUser(employeeUser); }} />
 
         </Link>
 

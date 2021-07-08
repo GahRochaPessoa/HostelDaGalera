@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 import { IoMdPersonAdd } from 'react-icons/io';
 import { IoArrowUndoOutline } from 'react-icons/io5';
-import { BiCalendar } from 'react-icons/bi';
+/* import { BiCalendar } from 'react-icons/bi';
 import { VscSignOut, VscSignIn } from 'react-icons/vsc';
-
+ */
 import * as Styles from '../styles';
 
 export function MenuEmployee() {
@@ -22,7 +22,7 @@ export function MenuEmployee() {
             <p>Hospedes</p>
           </Styles.MenuOption>
         </Link>
-        <Link href="/Reservation">
+        {/* <Link href="/Reservation">
           <Styles.MenuOption>
             <BiCalendar style={{
               height: 30,
@@ -54,7 +54,7 @@ export function MenuEmployee() {
             />
             <p>CheckOut</p>
           </Styles.MenuOption>
-        </Link>
+        </Link> */}
         <Link href="/">
           <Styles.MenuOption>
             <IoArrowUndoOutline style={{

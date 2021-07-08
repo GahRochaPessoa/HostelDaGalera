@@ -72,7 +72,7 @@ export const ButtonContainer = styled.div`
 
 export const ButtonReservation = styled(Button)`
     color: white;
-    background-color:teal;
+    background-color:#6558f5;
     height: 60%;
     border-radius:10px;
 

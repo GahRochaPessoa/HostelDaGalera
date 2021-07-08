@@ -89,7 +89,7 @@ export function RoomForm() {
   return (
     <UserProvider value={handleRoomData}>
       {isRegister === true ? (
-        <Modal onClose={onRegisterClose} visible={isRegister}>
+        <Modal onClose={onRegisterClose} header="Registrar Quarto" visible={isRegister}>
           <Styles.Form onSubmit={registerRoom}>
             {console.log(isRoomType)}
             <select value={isRoomType} onChange={(e) => { setIsRoomType(e.target.value); }}>
@@ -111,7 +111,7 @@ export function RoomForm() {
       ) : null}
 
       {isRegisterUpdate === true ? (
-        <Modal onClose={onUpdateClose} visible={isRegisterUpdate}>
+        <Modal onClose={onUpdateClose} header="Editar Quarto" visible={isRegisterUpdate}>
           <Styles.Form onSubmit={updateRoom}>
             <select
               onChange={(e) => {
@@ -170,7 +170,7 @@ export function RoomForm() {
       ) : null}
 
       {isRegisterDelete === true ? (
-        <Modal onClose={onDeleteClose} visible={isRegisterDelete}>
+        <Modal onClose={onDeleteClose} header="Excluir Quarto" visible={isRegisterDelete}>
           <Styles.Form onSubmit={deleteRoom}>
             <select
               value={isDelete}
@@ -204,21 +204,21 @@ export function RoomForm() {
           value="Cadastrar"
           variant="filled"
           type="submit"
-          backgroundColor="teal"
+          backgroundColor="#6558f5"
           onClick={() => { setIsRegister(!isRegister); GetRoomData(); }}
         />
         <Styles.Button
           value="Alterar"
           variant="filled"
           type="submit"
-          backgroundColor="teal"
+          backgroundColor="#6558f5"
           onClick={() => { setIsRegisterUpdate(!isRegisterUpdate); GetRoomData(); }}
         />
         <Styles.Button
           value="Excluir"
           variant="filled"
           type="submit"
-          backgroundColor="teal"
+          backgroundColor="#6558f5"
           onClick={() => { setIsRegisterDelete(!isRegisterDelete); GetRoomData(); }}
         />
       </Styles.ContainerButtons>
