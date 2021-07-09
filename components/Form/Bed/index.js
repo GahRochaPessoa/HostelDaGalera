@@ -94,7 +94,7 @@ export function BedForm() {
 
   async function updateBedFields() {
     const { data: bedFields } = await api.get(`/cama/${isUpdate}/`);
-    setHandleEmployeeFields(bedFields);
+    setHandleBedFields(bedFields);
   }
 
   useEffect(() => {
@@ -169,13 +169,12 @@ export function BedForm() {
                 setIsUpdate(e.target.value);
               }}
             >
-              {handleBedData.map((employee) => (
+              {handleBedData.map((bed) => (
                 <option
-                  key={employee.id}
-                  value={employee.id}
-                  ref={ref}
+                  key={bed.id}
+                  value={bed.id}
                 >
-                  {employee.nome}
+                  {bed.nome}
                 </option>
 
               ))}

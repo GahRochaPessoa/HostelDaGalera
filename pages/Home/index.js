@@ -23,9 +23,6 @@ export async function getStaticProps() {
 
 export default function Home() {
   const { user } = useAuth();
-  useEffect(() => {
-    sessionStorage.setItem('user', user);
-  }, []);
   return (
     <Container>
       <Header header="Home" />

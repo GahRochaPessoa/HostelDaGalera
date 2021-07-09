@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AiOutlineMenu, AiOutlineArrowLeft } from 'react-icons/ai';
 import { useAuth } from '../../contexts/auth';
-/* import { MenuEmployee } from './components/MenuEmployee'; */
+import { MenuEmployee } from './components/MenuEmployee';
 import { MenuEmployer } from './components/MenuEmployer';
 
 import * as Styles from './styles';
@@ -9,7 +9,6 @@ import * as Styles from './styles';
 export function Menu() {
   const { user } = useAuth();
   const [openMenu, setOpenMenu] = useState(false);
-  /* const sessionToken = sessionStorage.getItem('user'); */
   return (
     openMenu === false
       ? (
@@ -31,9 +30,9 @@ export function Menu() {
               onClick={() => { setOpenMenu(!openMenu); }}
             />
           </Styles.MenuHeading>
-          {/*  {sessionToken === 'Gerente' */}
-          <MenuEmployer />
-          {/*  : <MenuEmployee /> } */}
+          {user === 'Gerente'
+            ? <MenuEmployer />
+            : <MenuEmployee /> }
         </Styles.MenuWrapper>
       ))
   );

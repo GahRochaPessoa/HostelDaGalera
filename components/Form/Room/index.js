@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/button-has-type */
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Modal } from '../../Modal';
 import * as Styles from './styles';
 import { UserProvider } from '../../../contexts/users';

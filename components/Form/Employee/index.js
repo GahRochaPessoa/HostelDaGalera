@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/button-has-type */
 import {
-  useState, useRef, useEffect,
+  useState, useEffect,
 } from 'react';
 import { Modal } from '../../Modal';
 import * as Styles from './styles';
@@ -23,7 +23,6 @@ export function CreateEmployee() {
   const [isUserTelefone, setIsUserTelefone] = useState('');
   const [isUserBirth, setisUserBirth] = useState('');
 
-  const ref = useRef();
   console.log(handleEmployeeData);
   console.log('update', isUpdate);
 
@@ -137,17 +136,13 @@ export function CreateEmployee() {
 
             <select
               onChange={(e) => {
-                console.log('target que vem >>>', e.target.value);
                 setIsUpdate(e.target.value);
               }}
             >
-
               {handleEmployeeData.map((employee) => (
-
                 <option
                   key={employee.id}
                   value={employee.id}
-                  ref={ref}
                 >
                   {employee.nome}
                 </option>

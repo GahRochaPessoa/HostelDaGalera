@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { IoMdPersonAdd } from 'react-icons/io';
 import { FaBed, FaDoorOpen } from 'react-icons/fa';
 import { MdWork } from 'react-icons/md';
-import { IoNewspaperOutline, IoArrowUndoOutline } from 'react-icons/io5';
+import { IoArrowUndoOutline } from 'react-icons/io5';
 /* import { BiCalendar } from 'react-icons/bi';
 import { GiReceiveMoney } from 'react-icons/gi';
 import { VscSignOut, VscSignIn } from 'react-icons/vsc'; */
