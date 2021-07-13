@@ -116,7 +116,7 @@ export function RoomForm() {
             <select
               onChange={(e) => {
                 setIsUpdate(e.target.value);
-                updateEmployeeFields();
+                updateRoomFields();
               }}
             >
               {/* {console.log('Gabs', isUpdate)} */}

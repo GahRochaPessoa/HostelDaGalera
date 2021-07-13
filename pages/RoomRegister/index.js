@@ -6,7 +6,7 @@ import { RoomForm } from '../../components/Form/Room';
 export default function RoomRegistration() {
   return (
     <Container>
-      <Header header="Registro Quartos" />
+      <Header header="Quartos" />
       <Styles.WrapperContent>
         <RoomForm />
       </Styles.WrapperContent>
