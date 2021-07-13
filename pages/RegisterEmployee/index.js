@@ -9,7 +9,7 @@ import { CreateEmployee } from '../../components/Form/Employee';
 export default function RegisterEmployee() {
   return (
     <Container>
-      <Header header="Registro Funcionario" />
+      <Header header="Funcionario" />
       <Styles.WrapperContent>
         <CreateEmployee />
       </Styles.WrapperContent>

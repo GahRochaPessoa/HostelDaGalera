@@ -6,7 +6,7 @@ import { CreateGuest } from '../../components/Form/Guest';
 export default function Register() {
   return (
     <Container>
-      <Header header="Registro" />
+      <Header header="Funcionario" />
       <Styles.WrapperContent>
         <CreateGuest />
       </Styles.WrapperContent>

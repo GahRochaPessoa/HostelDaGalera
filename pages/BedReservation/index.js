@@ -6,7 +6,7 @@ import { BedForm } from '../../components/Form/Bed';
 export default function BedReservation() {
   return (
     <Container>
-      <Header header="Registro de Cama" />
+      <Header header="Cama" />
       <Styles.WrapperContent>
         <BedForm />
       </Styles.WrapperContent>
