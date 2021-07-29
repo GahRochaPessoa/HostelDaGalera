@@ -1,13 +1,17 @@
 import styled from 'styled-components';
-import { Input } from '@chakra-ui/react';
 
-export const Button = styled(Input)`
+export const Button = styled.button`
+    height: 30px;
     width:40%;
-    background-color: #6558f5;
+    background-color: #DC6128;
     margin-bottom: 12px;
     color:white;
     z-index: 1;
-
+    transition: filter 0.2s;
+    border-radius: 3px;
+    & :hover{
+        filter: brightness(1.6);
+    }
 `;
 
 export const ContainerButtons = styled.div`
@@ -46,13 +50,32 @@ export const Form = styled.form`
         font-size: 20px;
         height: 50px;
         width: 40%;
-        background-color: #6558f5;
+        border: 1px solid white;
+        background-color: #DC6128;
         border-radius: 5px;
-       
+        transition: filter 0.2s;
+        color:white;
+
+        &:hover{
+            filter:  brightness(1.6);
+        }
     }
 `;
 
 export const ButtonDeleteContainer = styled.div`
     display: flex;
 
+`;
+
+export const ButtonWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h3{
+        color: white;
+        text-transform: uppercase;
+    }
+    #buttonIcon{
+      margin-right: 8px ;
+    }
 `;

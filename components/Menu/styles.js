@@ -33,7 +33,7 @@ export const MenuHeading = styled.div`
     height:100px;
     width:100%;
     align-items: center;
-    justify-content:space-between;
+    justify-content:space-evenly;
 
     h2{
         text-align:center;
@@ -46,20 +46,23 @@ export const MenuHeading = styled.div`
 export const MenuOptionsContainer = styled(Flex)`
     width:100%;
     height:100%;
-    align-items: center;
-    justify-content:center;
+    align-items: flex-start;
+    justify-content:flex-start;
     display: flex;
     flex-direction: column;
+    padding-top: 30px;
 `;
 
 export const MenuOption = styled.div`
     cursor: pointer;
     width: 100%;
-    height:116px;
+    height:80px;
     display: flex;
     align-items:center;
     justify-content:center;
     border-top: 1px solid #000;
+    transition: filter 0.2s;
+
     
     
     p{
@@ -67,6 +70,10 @@ export const MenuOption = styled.div`
     }
 
     :hover{
-        background-color:#E1E1E1;
+        margin-left: -5%;
+        width:100%;
+        background-color: #DC6128;
+        filter: brightness(1.6);
+        color: white;
     }
 `;

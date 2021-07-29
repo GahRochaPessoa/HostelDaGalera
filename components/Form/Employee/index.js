@@ -3,6 +3,10 @@
 import {
   useState, useEffect,
 } from 'react';
+import {
+  BsPlusSquare,
+  BsXSquare, BsFileEarmarkArrowUp,
+} from 'react-icons/bs';
 import { Modal } from '../../Modal';
 import * as Styles from './styles';
 import { UserProvider } from '../../../contexts/users';
@@ -15,7 +19,7 @@ export function CreateEmployee() {
   const [isRegisterUpdate, setIsRegisterUpdate] = useState(false);
   const [isRegisterDelete, setIsRegisterDelete] = useState(false);
   const [isDelete, setIsDelete] = useState();
-  const [isUpdate, setIsUpdate] = useState(2);
+  const [isUpdate, setIsUpdate] = useState(1);
   const [isUserType, setIsUserType] = useState('');
   const [isUserName, setIsUserName] = useState('');
   const [isUserCPF, setIsUserCPF] = useState('');
@@ -233,21 +237,42 @@ export function CreateEmployee() {
           type="submit"
           backgroundColor="#6558f5"
           onClick={() => { setIsRegister(!isRegister); GetEmployeeData(); }}
-        />
+        >
+          <Styles.ButtonWrapper>
+            <BsPlusSquare id="buttonIcon" />
+            <h3>
+              Cadastrar Funcionário
+            </h3>
+          </Styles.ButtonWrapper>
+        </Styles.Button>
         <Styles.Button
           value="Alterar"
           variant="filled"
           type="submit"
           backgroundColor="#6558f5"
           onClick={() => { setIsRegisterUpdate(!isRegisterUpdate); GetEmployeeData(); }}
-        />
+        >
+          <Styles.ButtonWrapper>
+            <BsFileEarmarkArrowUp size="1.5em" id="buttonIcon" />
+            <h3>
+              Alterar Funcionário
+            </h3>
+          </Styles.ButtonWrapper>
+        </Styles.Button>
         <Styles.Button
           value="Excluir"
           variant="filled"
           type="submit"
           backgroundColor="#6558f5"
           onClick={() => { setIsRegisterDelete(!isRegisterDelete); GetEmployeeData(); }}
-        />
+        >
+          <Styles.ButtonWrapper>
+            <BsXSquare id="buttonIcon" />
+            <h3>
+              Excluir Funcionário
+            </h3>
+          </Styles.ButtonWrapper>
+        </Styles.Button>
       </Styles.ContainerButtons>
     </UserProvider>
   );

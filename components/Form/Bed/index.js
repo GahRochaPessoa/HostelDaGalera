@@ -1,6 +1,10 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/button-has-type */
 import { useState, useEffect } from 'react';
+import {
+  BsPlusSquare,
+  BsXSquare, BsFileEarmarkArrowUp,
+} from 'react-icons/bs';
 import { Modal } from '../../Modal';
 import * as Styles from './styles';
 import { UserProvider } from '../../../contexts/users';
@@ -14,7 +18,7 @@ export function BedForm() {
   const [isRegisterUpdate, setIsRegisterUpdate] = useState(false);
   const [isRegisterDelete, setIsRegisterDelete] = useState(false);
   const [isDelete, setIsDelete] = useState();
-  const [isUpdate, setIsUpdate] = useState(2);
+  const [isUpdate, setIsUpdate] = useState(1);
   const [isBedType, setIsBedType] = useState('');
   const [isBedRoomType, setIsBedRoomType] = useState(null);
   const [isBedStatus, setIsBedStatus] = useState('');
@@ -292,23 +296,44 @@ export function BedForm() {
           value="Cadastrar"
           variant="filled"
           type="submit"
-          backgroundColor="#6558f5"
+          backgroundColor="#DC6128"
           onClick={() => { setIsRegister(!isRegister); GetBedData(); GetRoomData(); }}
-        />
+        >
+          <Styles.ButtonWrapper>
+            <BsPlusSquare id="buttonIcon" />
+            <h3>
+              Cadastrar Cama
+            </h3>
+          </Styles.ButtonWrapper>
+        </Styles.Button>
         <Styles.Button
           value="Alterar"
           variant="filled"
           type="submit"
-          backgroundColor="#6558f5"
+          backgroundColor="#DC6128"
           onClick={() => { setIsRegisterUpdate(!isRegisterUpdate); GetBedData(); GetRoomData(); }}
-        />
+        >
+          <Styles.ButtonWrapper>
+            <BsFileEarmarkArrowUp size="1.5em" id="buttonIcon" />
+            <h3>
+              Alterar Cama
+            </h3>
+          </Styles.ButtonWrapper>
+        </Styles.Button>
         <Styles.Button
           value="Excluir"
           variant="filled"
           type="submit"
-          backgroundColor="#6558f5"
+          backgroundColor="#DC6128"
           onClick={() => { setIsRegisterDelete(!isRegisterDelete); GetBedData(); GetRoomData(); }}
-        />
+        >
+          <Styles.ButtonWrapper>
+            <BsXSquare id="buttonIcon" />
+            <h3>
+              Excluir Cama
+            </h3>
+          </Styles.ButtonWrapper>
+        </Styles.Button>
       </Styles.ContainerButtons>
     </UserProvider>
   );

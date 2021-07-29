@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { Input } from '@chakra-ui/react';
 
-export const Button = styled(Input)`
+export const Button = styled.button`
     width:40%;
-    background-color: #6558f5;
+    background-color: #DC6128;
     margin-bottom: 12px;
     color:white;
     z-index: 1;
@@ -39,7 +39,7 @@ export const Form = styled.form`
         font-size: 20px;
         height: 50px;
         width: 40%;
-        background-color: #6558f5;
+        background-color: #DC6128;
         border-radius: 5px;
     }
 `;

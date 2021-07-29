@@ -12,9 +12,9 @@ export const WrapperContent = styled.div`
     flex-direction:column;
 `;
 
-export const Button = styled(Input)`
+export const Button = styled.button`
     width:40%;
-    background-color: #6558f5;
+    background-color: #DC6128;
     margin-bottom: 12px;
     color:white;
     z-index: 1;

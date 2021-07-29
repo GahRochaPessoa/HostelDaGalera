@@ -27,7 +27,7 @@ export const ReservationWrapper = styled.div`
     display: flex;
 `;
 
-export const SearchInput = styled(Input)`
+export const SearchInput = styled.button`
     width: 100%;
     display: flex;
     align-items:center;
@@ -72,7 +72,7 @@ export const ButtonContainer = styled.div`
 
 export const ButtonReservation = styled(Button)`
     color: white;
-    background-color:#6558f5;
+    background-color:#DC6128;
     height: 60%;
     border-radius:10px;
 

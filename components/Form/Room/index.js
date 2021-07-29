@@ -1,6 +1,10 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/button-has-type */
 import { useState, useEffect } from 'react';
+import {
+  BsPlusSquare,
+  BsXSquare, BsFileEarmarkArrowUp,
+} from 'react-icons/bs';
 import { Modal } from '../../Modal';
 import * as Styles from './styles';
 import { UserProvider } from '../../../contexts/users';
@@ -13,8 +17,8 @@ export function RoomForm() {
   const [isRegisterUpdate, setIsRegisterUpdate] = useState(false);
   const [isRegisterDelete, setIsRegisterDelete] = useState(false);
   const [isDelete, setIsDelete] = useState();
-  const [isUpdate, setIsUpdate] = useState(2);
-  const [isRoomType, setIsRoomType] = useState('');
+  const [isUpdate, setIsUpdate] = useState(1);
+  const [isRoomType, setIsRoomType] = useState();
   const [isRoomName, setIsRoomName] = useState('');
   const [isRoomDescription, setIsRoomDescription] = useState('');
 
@@ -116,7 +120,7 @@ export function RoomForm() {
             <select
               onChange={(e) => {
                 setIsUpdate(e.target.value);
-                updateEmployeeFields();
+                updateRoomFields();
               }}
             >
               {/* {console.log('Gabs', isUpdate)} */}
@@ -204,23 +208,45 @@ export function RoomForm() {
           value="Cadastrar"
           variant="filled"
           type="submit"
-          backgroundColor="#6558f5"
+          backgroundColor="#DC6128"
           onClick={() => { setIsRegister(!isRegister); GetRoomData(); }}
-        />
+        >
+          <Styles.ButtonWrapper>
+            <BsPlusSquare id="buttonIcon" />
+            <h3>
+              Cadastrar Quarto
+            </h3>
+          </Styles.ButtonWrapper>
+        </Styles.Button>
+
         <Styles.Button
           value="Alterar"
           variant="filled"
           type="submit"
-          backgroundColor="#6558f5"
+          backgroundColor="#DC6128"
           onClick={() => { setIsRegisterUpdate(!isRegisterUpdate); GetRoomData(); }}
-        />
+        >
+          <Styles.ButtonWrapper>
+            <BsFileEarmarkArrowUp size="1.5em" id="buttonIcon" />
+            <h3>
+              Alterar Quarto
+            </h3>
+          </Styles.ButtonWrapper>
+        </Styles.Button>
         <Styles.Button
           value="Excluir"
           variant="filled"
           type="submit"
-          backgroundColor="#6558f5"
+          backgroundColor="#DC6128"
           onClick={() => { setIsRegisterDelete(!isRegisterDelete); GetRoomData(); }}
-        />
+        >
+          <Styles.ButtonWrapper>
+            <BsXSquare id="buttonIcon" />
+            <h3>
+              Excluir Quarto
+            </h3>
+          </Styles.ButtonWrapper>
+        </Styles.Button>
       </Styles.ContainerButtons>
     </UserProvider>
   );

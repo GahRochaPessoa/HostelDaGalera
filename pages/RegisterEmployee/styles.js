@@ -23,7 +23,7 @@ export const FormContainer = styled(Form)`
 
     div{
         width:70%;
-        background-color:#6558f5;
+        background-color:#DC6128;
 
         input{
             width: 548px;
@@ -37,9 +37,9 @@ export const FormContainer = styled(Form)`
    
 `;
 
-export const Button = styled(Input)`
+export const Button = styled.button`
     width:40%;
-    background-color: #6558f5;
+    background-color: #DC6128;
     margin-bottom: 12px;
     color:white;
     z-index: 1;

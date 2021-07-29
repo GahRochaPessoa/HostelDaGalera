@@ -3,6 +3,10 @@
 import {
   useState, useEffect,
 } from 'react';
+import {
+  BsPlusSquare,
+  BsXSquare, BsFileEarmarkArrowUp,
+} from 'react-icons/bs';
 import { Modal } from '../../Modal';
 import * as Styles from './styles';
 import { UserProvider } from '../../../contexts/users';
@@ -15,7 +19,7 @@ export function CreateGuest() {
   const [isRegisterUpdate, setIsRegisterUpdate] = useState(false);
   const [isRegisterDelete, setIsRegisterDelete] = useState(false);
   const [isDelete, setIsDelete] = useState();
-  const [isUpdate, setIsUpdate] = useState(3);
+  const [isUpdate, setIsUpdate] = useState(1);
   const [isUserName, setIsUserName] = useState('');
   const [isUserCPF, setIsUserCPF] = useState('');
   const [isUserEmail, setIsUserEmail] = useState('');
@@ -95,7 +99,7 @@ export function CreateGuest() {
   return (
     <UserProvider value={handleEmployeeData}>
       {isRegister === true ? (
-        <Modal onClose={onRegisterClose} header="Registrar Empregado" visible={isRegister}>
+        <Modal onClose={onRegisterClose} header="Registrar Hóspede" visible={isRegister}>
           <Styles.Form onSubmit={registerUser}>
             <input id="name" type="text" required placeholder="Nome" onChange={(e) => setIsUserName(e.target.value)} />
             <input id="cpf" type="text" placeholder="CPF" required onChange={(e) => setIsUserCPF(e.target.value)} />
@@ -108,7 +112,7 @@ export function CreateGuest() {
       ) : null}
 
       {isRegisterUpdate === true ? (
-        <Modal onClose={onUpdateClose} header="Editar hospede" visible={isRegisterUpdate}>
+        <Modal onClose={onUpdateClose} header="Editar Hospede" visible={isRegisterUpdate}>
           <Styles.Form onSubmit={updateEmployee}>
             <select
               onChange={(e) => {
@@ -206,23 +210,44 @@ export function CreateGuest() {
           value="Cadastrar"
           variant="filled"
           type="submit"
-          backgroundColor="#6558f5"
+          backgroundColor="#DC6128"
           onClick={() => { setIsRegister(!isRegister); GetEmployeeData(); }}
-        />
+        >
+          <Styles.ButtonWrapper>
+            <BsPlusSquare id="buttonIcon" />
+            <h3>
+              Cadastrar Hóspede
+            </h3>
+          </Styles.ButtonWrapper>
+        </Styles.Button>
         <Styles.Button
           value="Alterar"
           variant="filled"
           type="submit"
-          backgroundColor="#6558f5"
+          backgroundColor="#DC6128"
           onClick={() => { setIsRegisterUpdate(!isRegisterUpdate); GetEmployeeData(); }}
-        />
+        >
+          <Styles.ButtonWrapper>
+            <BsFileEarmarkArrowUp size="1.5em" id="buttonIcon" />
+            <h3>
+              Alterar Hóspede
+            </h3>
+          </Styles.ButtonWrapper>
+        </Styles.Button>
         <Styles.Button
           value="Excluir"
           variant="filled"
           type="submit"
-          backgroundColor="#6558f5"
+          backgroundColor="#DC6128"
           onClick={() => { setIsRegisterDelete(!isRegisterDelete); GetEmployeeData(); }}
-        />
+        >
+          <Styles.ButtonWrapper>
+            <BsXSquare id="buttonIcon" />
+            <h3>
+              Excluir Hóspede
+            </h3>
+          </Styles.ButtonWrapper>
+        </Styles.Button>
       </Styles.ContainerButtons>
     </UserProvider>
   );
