@@ -19,9 +19,9 @@ export function BedForm() {
   const [isRegisterDelete, setIsRegisterDelete] = useState(false);
   const [isDelete, setIsDelete] = useState();
   const [isUpdate, setIsUpdate] = useState(1);
-  const [isBedType, setIsBedType] = useState('');
-  const [isBedRoomType, setIsBedRoomType] = useState(null);
-  const [isBedStatus, setIsBedStatus] = useState('');
+  const [isBedType, setIsBedType] = useState(1);
+  const [isBedRoomType, setIsBedRoomType] = useState();
+  const [isBedStatus, setIsBedStatus] = useState('l');
   const [isBedName, setIsBedName] = useState('');
   const [isBedDescription, setIsBedDescription] = useState('');
   const [isBedValue, setIsBedValue] = useState('');
@@ -110,7 +110,6 @@ export function BedForm() {
       {isRegister === true ? (
         <Modal onClose={onRegisterClose} header="Registrar Cama" visible={isRegister}>
           <Styles.Form onSubmit={registerBed}>
-            {console.log(isBedType)}
             <select
               value={isBedType}
               onChange={(e) => {
@@ -129,11 +128,11 @@ export function BedForm() {
             </select>
 
             <select
-              value={isDelete}
               onChange={(e) => {
                 setIsBedRoomType(e.target.value);
               }}
             >
+              {console.log('essa porra', isBedRoomType)}
               {handleRoomData.map((room) => (
                 <option
                   key={room.id}
@@ -149,6 +148,7 @@ export function BedForm() {
                 setIsBedStatus(e.target.value);
               }}
             >
+              {console.log('essa porra2', isBedStatus)}
               <option value="l">
                 Livre
               </option>

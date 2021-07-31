@@ -51,10 +51,10 @@ export const Form = styled.form`
         height: 50px;
         width: 40%;
         border: 1px solid white;
-        background-color: #DC6128;
+        background-color: white;
         border-radius: 5px;
         transition: filter 0.2s;
-        color:white;
+        color:#DC6128;
 
         &:hover{
             filter:  brightness(1.6);
