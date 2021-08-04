@@ -14,17 +14,16 @@ import { api } from '../../../pages/api/api';
 
 export function CreateGuest() {
   const [handleEmployeeData, setHandleEmployeeData] = useState([]);
-  const [handleEmployeeFields, setHandleEmployeeFields] = useState({});
   const [isRegister, setIsRegister] = useState(false);
   const [isRegisterUpdate, setIsRegisterUpdate] = useState(false);
   const [isRegisterDelete, setIsRegisterDelete] = useState(false);
-  const [isDelete, setIsDelete] = useState();
+  const [isDelete, setIsDelete] = useState(1);
   const [isUpdate, setIsUpdate] = useState(1);
-  const [isUserName, setIsUserName] = useState('');
-  const [isUserCPF, setIsUserCPF] = useState('');
-  const [isUserEmail, setIsUserEmail] = useState('');
-  const [isUserTelefone, setIsUserTelefone] = useState('');
-  const [isUserBirth, setisUserBirth] = useState('');
+  const [isGuestName, setIsGuestName] = useState('');
+  const [isGuestCPF, setIsGuestCPF] = useState('');
+  const [isGuestEmail, setIsGuestEmail] = useState('');
+  const [isGuestTelefone, setIsGuestTelefone] = useState('');
+  const [isGuestBirth, setIsGuestBirth] = useState('');
 
   function onRegisterClose() {
     setIsRegister(false);
@@ -38,37 +37,37 @@ export function CreateGuest() {
 
   async function registerUser(event) {
     event.preventDefault();
-    const dataEmployee = {
-      nome: isUserName,
-      cpf: isUserCPF,
-      email: isUserEmail,
-      telefone: isUserTelefone,
-      data_nascimento: isUserBirth,
+    const dataGuest = {
+      nome: isGuestName,
+      cpf: isGuestCPF,
+      email: isGuestEmail,
+      telefone: isGuestTelefone,
+      data_nascimento: isGuestBirth,
     };
     try {
-      await api.post('/hospede/', dataEmployee);
+      await api.post('/hospede/', dataGuest);
       alert('Hospede Cadastrado com Sucesso');
       setIsRegister(false);
     } catch (error) {
       alert('Error ao Cadastrar hospede, tente novamente');
     }
   }
-  async function GetEmployeeData() {
-    const { data: employeeData } = await api.get('/hospede/');
-    if (!employeeData) {
+  async function GetGuestData() {
+    const { data: guestData } = await api.get('/hospede/');
+    if (!guestData) {
       return {
         notFound: true,
       };
     }
-    setHandleEmployeeData(employeeData);
+    setHandleEmployeeData(guestData);
   }
 
-  async function deleteEmployee(event) {
+  async function deleteGuest(event) {
     event.preventDefault();
     try {
       await api.delete(`/hospede/${isDelete}/`);
       alert('Hospede deletado com Sucesso');
-      await GetEmployeeData();
+      await GetGuestData();
       setIsRegister(false);
     } catch (error) {
       alert('Error ao apagar hospede, tente novamente');
@@ -77,23 +76,34 @@ export function CreateGuest() {
 
   async function updateEmployee(event) {
     event.preventDefault();
+    const dataGuest = {
+      nome: isGuestName,
+      cpf: isGuestCPF,
+      email: isGuestEmail,
+      telefone: isGuestTelefone,
+      data_nascimento: isGuestBirth,
+    };
     try {
-      await api.put(`/hospede/${isUpdate}/`, data);
-      alert('Hospede Deletado com Sucesso');
+      await api.put(`/hospede/${isUpdate}/`, dataGuest);
+      alert('Hospede alterado com Sucesso');
 
       setIsRegister(false);
     } catch (error) {
-      alert('Error ao apagar hospede, tente novamente');
+      alert('Error ao alterar hospede, tente novamente');
     }
   }
 
-  async function updateEmployeeFields() {
-    const { data: employeeFields } = await api.get(`/hospede/${isUpdate}/`);
-    setHandleEmployeeFields(employeeFields);
+  async function updateGuestFields() {
+    const { data: guestFields } = await api.get(`/hospede/${isUpdate}/`);
+    setIsGuestName(guestFields.nome);
+    setIsGuestCPF(guestFields.cpf);
+    setIsGuestEmail(guestFields.email);
+    setIsGuestTelefone(guestFields.telefone);
+    setIsGuestBirth(guestFields.data_nascimento);
   }
 
   useEffect(() => {
-    updateEmployeeFields();
+    updateGuestFields();
   }, [isUpdate]);
 
   return (
@@ -101,11 +111,11 @@ export function CreateGuest() {
       {isRegister === true ? (
         <Modal onClose={onRegisterClose} header="Registrar Hóspede" visible={isRegister}>
           <Styles.Form onSubmit={registerUser}>
-            <input id="name" type="text" required placeholder="Nome" onChange={(e) => setIsUserName(e.target.value)} />
-            <input id="cpf" type="text" placeholder="CPF" required onChange={(e) => setIsUserCPF(e.target.value)} />
-            <input id="email" type="text" placeholder="Email" required onChange={(e) => setIsUserEmail(e.target.value)} />
-            <input id="telefone" type="text" placeholder="Telefone" required onChange={(e) => setIsUserTelefone(e.target.value)} />
-            <input id="dataNascimento" type="text" placeholder="Data Nascimento" required onChange={(e) => { setisUserBirth(e.target.value); }} />
+            <input id="name" type="text" required placeholder="Nome" onChange={(e) => setIsGuestName(e.target.value)} />
+            <input id="cpf" type="text" placeholder="CPF" required onChange={(e) => setIsGuestCPF(e.target.value)} />
+            <input id="email" type="text" placeholder="Email" required onChange={(e) => setIsGuestEmail(e.target.value)} />
+            <input id="telefone" type="text" placeholder="Telefone" required onChange={(e) => setIsGuestTelefone(e.target.value)} />
+            <input id="dataNascimento" type="text" placeholder="Data Nascimento" required onChange={(e) => { setIsGuestBirth(e.target.value); }} />
             <button type="submit">Registrar</button>
           </Styles.Form>
         </Modal>
@@ -132,42 +142,42 @@ export function CreateGuest() {
             <input
               id="name"
               type="text"
-              value={handleEmployeeFields.nome}
+              value={isGuestName}
               required
               placeholder="Nome"
-              onChange={(e) => setIsUserName(e.target.value)}
+              onChange={(e) => setIsGuestName(e.target.value)}
             />
             <input
               id="cpf"
               type="text"
-              value={handleEmployeeFields.cpf}
+              value={isGuestCPF}
               placeholder="CPF"
               required
-              onChange={(e) => setIsUserCPF(e.target.value)}
+              onChange={(e) => setIsGuestCPF(e.target.value)}
             />
             <input
               id="email"
               type="text"
-              value={handleEmployeeFields.email}
+              value={isGuestEmail}
               placeholder="Email"
               required
-              onChange={(e) => setIsUserEmail(e.target.value)}
+              onChange={(e) => setIsGuestEmail(e.target.value)}
             />
             <input
               id="telefone"
               type="text"
               placeholder="Telefone"
-              value={handleEmployeeFields.telefone}
+              value={isGuestTelefone}
               required
-              onChange={(e) => setIsUserTelefone(e.target.value)}
+              onChange={(e) => setIsGuestTelefone(e.target.value)}
             />
             <input
               id="dataNascimento"
               type="text"
               placeholder="Data Nascimento"
               required
-              value={handleEmployeeFields.data_nascimento}
-              onChange={(e) => { setisUserBirth(e.target.value); }}
+              value={isGuestBirth}
+              onChange={(e) => { setIsGuestBirth(e.target.value); }}
             />
             <button type="submit">Alterar</button>
 
@@ -177,7 +187,7 @@ export function CreateGuest() {
 
       {isRegisterDelete === true ? (
         <Modal onClose={onDeleteClose} header="Excluir Hospede" visible={isRegisterDelete}>
-          <Styles.Form onSubmit={deleteEmployee}>
+          <Styles.Form onSubmit={deleteGuest}>
             <select
               value={isDelete}
               onChange={(e) => {
@@ -211,7 +221,7 @@ export function CreateGuest() {
           variant="filled"
           type="submit"
           backgroundColor="#DC6128"
-          onClick={() => { setIsRegister(!isRegister); GetEmployeeData(); }}
+          onClick={() => { setIsRegister(!isRegister); GetGuestData(); }}
         >
           <Styles.ButtonWrapper>
             <BsPlusSquare id="buttonIcon" />
@@ -225,7 +235,7 @@ export function CreateGuest() {
           variant="filled"
           type="submit"
           backgroundColor="#DC6128"
-          onClick={() => { setIsRegisterUpdate(!isRegisterUpdate); GetEmployeeData(); }}
+          onClick={() => { setIsRegisterUpdate(!isRegisterUpdate); GetGuestData(); }}
         >
           <Styles.ButtonWrapper>
             <BsFileEarmarkArrowUp size="1.5em" id="buttonIcon" />
@@ -239,7 +249,7 @@ export function CreateGuest() {
           variant="filled"
           type="submit"
           backgroundColor="#DC6128"
-          onClick={() => { setIsRegisterDelete(!isRegisterDelete); GetEmployeeData(); }}
+          onClick={() => { setIsRegisterDelete(!isRegisterDelete); GetGuestData(); }}
         >
           <Styles.ButtonWrapper>
             <BsXSquare id="buttonIcon" />

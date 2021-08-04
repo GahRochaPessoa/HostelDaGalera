@@ -7,14 +7,15 @@ import {
   BsPlusSquare,
   BsXSquare, BsFileEarmarkArrowUp,
 } from 'react-icons/bs';
+import { DatePicker } from 'antd';
 import { Modal } from '../../Modal';
 import * as Styles from './styles';
 import { UserProvider } from '../../../contexts/users';
 import { api } from '../../../pages/api/api';
+import '../../../node_modules/antd/dist/antd.css';
 
 export function CreateEmployee() {
   const [handleEmployeeData, setHandleEmployeeData] = useState([]);
-  const [handleEmployeeFields, setHandleEmployeeFields] = useState({});
   const [isRegister, setIsRegister] = useState(false);
   const [isRegisterUpdate, setIsRegisterUpdate] = useState(false);
   const [isRegisterDelete, setIsRegisterDelete] = useState(false);
@@ -81,22 +82,33 @@ export function CreateEmployee() {
   }
 
   async function updateEmployee(event) {
+    const dataEmployee = {
+      tipo_funcionario: isUserType,
+      nome: isUserName,
+      cpf: isUserCPF,
+      email: isUserEmail,
+      telefone: isUserTelefone,
+      data_nascimento: isUserBirth,
+    };
     event.preventDefault();
     try {
-      await api.put(`/funcionario/${isUpdate}/`, data);
-      alert('Funcionário Deletado com Sucesso');
+      await api.put(`/funcionario/${isUpdate}/`, dataEmployee);
+      alert('Funcionário Alterado com Sucesso');
 
       setIsRegister(false);
     } catch (error) {
-      alert('Error ao apagar novo funcionário, tente novamente');
+      alert('Error ao alterar funcionario, tente novamente');
     }
   }
 
   async function updateEmployeeFields() {
-    console.log('isUpdate >>>', isUpdate);
     const { data: employeeFields } = await api.get(`/funcionario/${isUpdate}/`);
-    console.log(employeeFields);
-    setHandleEmployeeFields(employeeFields);
+    setIsUserType(employeeFields.tipo_funcionario);
+    setIsUserName(employeeFields.nome);
+    setIsUserCPF(employeeFields.cpf);
+    setIsUserEmail(employeeFields.email);
+    setIsUserTelefone(employeeFields.telefone);
+    setisUserBirth(employeeFields.data_nascimento);
   }
 
   useEffect(() => {
@@ -128,7 +140,13 @@ export function CreateEmployee() {
             <input id="cpf" type="text" placeholder="CPF" required onChange={(e) => setIsUserCPF(e.target.value)} />
             <input id="email" type="text" placeholder="Email" required onChange={(e) => setIsUserEmail(e.target.value)} />
             <input id="telefone" type="text" placeholder="Telefone" required onChange={(e) => setIsUserTelefone(e.target.value)} />
-            <input id="dataNascimento" type="text" placeholder="Data Nascimento" required onChange={(e) => { setisUserBirth(e.target.value); }} />
+            <input
+              id="dataNascimento"
+              type="date"
+              placeholder="Data Nascimento"
+              required
+              onChange={(e) => { setisUserBirth(e.target.value); }}
+            />
             <button type="submit">Registrar</button>
           </Styles.Form>
         </Modal>
@@ -157,7 +175,7 @@ export function CreateEmployee() {
             <input
               id="name"
               type="text"
-              value={handleEmployeeFields.nome}
+              value={isUserName}
               required
               placeholder="Nome"
               onChange={(e) => setIsUserName(e.target.value)}
@@ -165,7 +183,7 @@ export function CreateEmployee() {
             <input
               id="cpf"
               type="text"
-              value={handleEmployeeFields.cpf}
+              value={isUserCPF}
               placeholder="CPF"
               required
               onChange={(e) => setIsUserCPF(e.target.value)}
@@ -173,7 +191,7 @@ export function CreateEmployee() {
             <input
               id="email"
               type="text"
-              value={handleEmployeeFields.email}
+              value={isUserEmail}
               placeholder="Email"
               required
               onChange={(e) => setIsUserEmail(e.target.value)}
@@ -182,17 +200,17 @@ export function CreateEmployee() {
               id="telefone"
               type="text"
               placeholder="Telefone"
-              value={handleEmployeeFields.telefone}
+              value={isUserTelefone}
               required
               onChange={(e) => setIsUserTelefone(e.target.value)}
             />
             <input
               id="dataNascimento"
-              type="text"
+              type="date"
               placeholder="Data Nascimento"
               required
-              value={handleEmployeeFields.data_nascimento}
-              onChange={(e) => { setisUserBirth(e.target.value); }}
+              value={isUserBirth}
+              onChange={(e) => setisUserBirth(e.target.value)}
             />
             <button type="submit">Alterar</button>
 

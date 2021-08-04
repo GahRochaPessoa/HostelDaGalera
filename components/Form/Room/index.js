@@ -12,7 +12,6 @@ import { api } from '../../../pages/api/api';
 
 export function RoomForm() {
   const [handleRoomData, setHandleRoomData] = useState([]);
-  const [handleRoomFields, setHandleRoomFields] = useState({});
   const [isRegister, setIsRegister] = useState(false);
   const [isRegisterUpdate, setIsRegisterUpdate] = useState(false);
   const [isRegisterDelete, setIsRegisterDelete] = useState(false);
@@ -37,7 +36,6 @@ export function RoomForm() {
       tipo_quarto: isRoomType,
       nome: isRoomName,
       descricao: isRoomDescription,
-
     };
     try {
       await api.post('/quarto/', dataRoom);
@@ -71,19 +69,26 @@ export function RoomForm() {
 
   async function updateRoom(event) {
     event.preventDefault();
+    const dataRoom = {
+      tipo_quarto: isRoomType,
+      nome: isRoomName,
+      descricao: isRoomDescription,
+    };
     try {
-      await api.put(`/quarto/${isDelete}/`, data);
-      alert('Quarto Deletado com Sucesso');
+      await api.put(`/quarto/${isUpdate}/`, dataRoom);
+      alert('Quarto alterado com sucesso');
 
       setIsRegister(false);
     } catch (error) {
-      alert('Error ao apagar quarto, tente novamente');
+      alert('Erro ao alterar quarto, tente novamente');
     }
   }
 
   async function updateRoomFields() {
     const { data: roomFields } = await api.get(`/quarto/${isUpdate}/`);
-    setHandleRoomFields(roomFields);
+    setIsRoomType(roomFields.tipo_quarto);
+    setIsRoomName(roomFields.nome);
+    setIsRoomDescription(roomFields.descricao);
   }
 
   useEffect(() => {
@@ -124,20 +129,20 @@ export function RoomForm() {
               }}
             >
               {/* {console.log('Gabs', isUpdate)} */}
-              {handleRoomData.map((employee) => (
+              {handleRoomData.map((room) => (
 
                 <option
-                  key={employee.id}
-                  value={employee.id}
+                  key={room.id}
+                  value={room.id}
                 >
-                  {employee.id}
+                  {room.nome}
                 </option>
 
               ))}
             </select>
 
             <select
-              value={handleRoomFields.tipo_quarto}
+              value={isRoomType}
               onChange={(e) => { setIsRoomType(e.target.value); }}
             >
               <option value="1">
@@ -153,18 +158,18 @@ export function RoomForm() {
             <input
               id="name"
               type="text"
-              value={handleRoomFields.nome}
+              value={isRoomName}
               required
               placeholder="Nome"
-              onChange={(e) => setIsUserName(e.target.value)}
+              onChange={(e) => setIsRoomName(e.target.value)}
             />
             <input
               id="descricao"
               type="text"
-              value={handleRoomFields.descricao}
+              value={isRoomDescription}
               placeholder="descricao"
               required
-              onChange={(e) => setIsUserCPF(e.target.value)}
+              onChange={(e) => setIsRoomDescription(e.target.value)}
             />
 
             <button type="submit">Alterar</button>

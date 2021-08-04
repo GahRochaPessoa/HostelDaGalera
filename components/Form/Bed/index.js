@@ -13,7 +13,6 @@ import { api } from '../../../pages/api/api';
 export function BedForm() {
   const [handleBedData, setHandleBedData] = useState([]);
   const [handleRoomData, setHandleRoomData] = useState([]);
-  const [handleBedFields, setHandleBedFields] = useState({});
   const [isRegister, setIsRegister] = useState(false);
   const [isRegisterUpdate, setIsRegisterUpdate] = useState(false);
   const [isRegisterDelete, setIsRegisterDelete] = useState(false);
@@ -70,6 +69,8 @@ export function BedForm() {
       };
     }
     setHandleRoomData(RoomData);
+    setIsBedRoomType(RoomData[0].id);
+    console.log('Fucking Quarto maldito >>>>', handleRoomData);
   }
 
   async function deleteBed(event) {
@@ -86,8 +87,16 @@ export function BedForm() {
 
   async function updateBed(event) {
     event.preventDefault();
+    const dataBed = {
+      tipo_cama: isBedType,
+      quarto: isBedRoomType,
+      status: isBedStatus,
+      nome: isBedName,
+      descricao: isBedDescription,
+      valor: isBedValue,
+    };
     try {
-      await api.put(`/cama/${isDelete}/`, data);
+      await api.put(`/cama/${isUpdate}/`, dataBed);
       alert('Cama Alterada com Sucesso');
 
       setIsRegister(false);
@@ -98,7 +107,12 @@ export function BedForm() {
 
   async function updateBedFields() {
     const { data: bedFields } = await api.get(`/cama/${isUpdate}/`);
-    setHandleBedFields(bedFields);
+    setIsBedType(bedFields.tipo_cama);
+    setIsBedRoomType(bedFields.quarto);
+    setIsBedStatus(bedFields.status);
+    setIsBedName(bedFields.nome);
+    setIsBedDescription(bedFields.descricao);
+    setIsBedValue(bedFields.valor);
   }
 
   useEffect(() => {
@@ -132,7 +146,6 @@ export function BedForm() {
                 setIsBedRoomType(e.target.value);
               }}
             >
-              {console.log('essa porra', isBedRoomType)}
               {handleRoomData.map((room) => (
                 <option
                   key={room.id}
@@ -148,7 +161,6 @@ export function BedForm() {
                 setIsBedStatus(e.target.value);
               }}
             >
-              {console.log('essa porra2', isBedStatus)}
               <option value="l">
                 Livre
               </option>
@@ -184,7 +196,7 @@ export function BedForm() {
               ))}
             </select>
             <select
-              value={handleBedFields.tipo_cama}
+              value={isBedType}
               onChange={(e) => {
                 setIsBedType(e.target.value);
               }}
@@ -201,7 +213,7 @@ export function BedForm() {
             </select>
 
             <select
-              value={handleBedFields.quarto}
+              value={isBedRoomType}
               onChange={(e) => {
                 setIsBedRoomType(e.target.value);
               }}
@@ -217,7 +229,7 @@ export function BedForm() {
             </select>
 
             <select
-              value={handleBedFields.status}
+              value={isBedStatus}
               onChange={(e) => {
                 setIsBedStatus(e.target.value);
               }}
@@ -231,7 +243,7 @@ export function BedForm() {
             </select>
             <input
               id="name"
-              value={handleBedFields.nome}
+              value={isBedName}
               type="text"
               required
               placeholder="Nome"
@@ -242,14 +254,14 @@ export function BedForm() {
             <textarea
               id="Descricao"
               type="text"
-              value={handleBedFields.descricao}
+              value={isBedDescription}
               placeholder="Descrição"
               required
               onChange={(e) => setIsBedDescription(e.target.value)}
             />
             <input
               id="Valor"
-              value={handleBedFields.value}
+              value={isBedValue}
               type="text"
               placeholder="Valor"
               required
