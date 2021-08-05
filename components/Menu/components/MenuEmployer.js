@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 import { IoMdPersonAdd } from 'react-icons/io';
 import { FaBed, FaDoorOpen } from 'react-icons/fa';
 import { MdWork } from 'react-icons/md';
-
-/* import { BiCalendar } from 'react-icons/bi';
+import { BiCalendar } from 'react-icons/bi';
+/*
 import { GiReceiveMoney } from 'react-icons/gi';
 import { VscSignOut, VscSignIn } from 'react-icons/vsc'; */
 
@@ -50,6 +50,15 @@ export function MenuEmployer() {
           }}
           />
           <p>Hospedes</p>
+        </Styles.MenuOption>
+        <Styles.MenuOption onClick={() => router.push('/Reservation')}>
+          <BiCalendar style={{
+            height: 30,
+            width: 30,
+            marginRight: 10,
+          }}
+          />
+          <p>Reservas</p>
         </Styles.MenuOption>
         {/* </Link> */}
         {/* <Link href="/Reservation">

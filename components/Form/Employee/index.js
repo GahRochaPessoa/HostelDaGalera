@@ -7,7 +7,6 @@ import {
   BsPlusSquare,
   BsXSquare, BsFileEarmarkArrowUp,
 } from 'react-icons/bs';
-import { DatePicker } from 'antd';
 import { Modal } from '../../Modal';
 import * as Styles from './styles';
 import { UserProvider } from '../../../contexts/users';

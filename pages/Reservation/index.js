@@ -1,93 +1,57 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable prefer-const */
-/* eslint-disable no-unused-expressions */
-import React from 'react';
-import { DatePicker } from 'antd';
-import moment from 'moment';
-/* import DatePicker from 'react-datepicker'; */
-import { Select, Checkbox, CheckboxGroup } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import {
+  BsPlusSquare,
+  BsXSquare, BsFileEarmarkArrowUp,
+} from 'react-icons/bs';
 import { Header } from '../../components/Header';
 import { Container } from '../../components/Container';
-/*
-import 'react-datepicker/dist/react-datepicker.css'; */
-import 'antd/dist/antd.css';
 import * as Styles from './styles';
+/* import { ReservationForm } from '../../components/Form/Reservation'; */
+import { useAuth } from '../../contexts/auth';
 
-export default function Reservation() {
-  const disabledDate = (current) => (
-    current && current < moment().endOf('day')
-  );
-
+export default function RoomRegistration() {
+  const { user, setUser } = useAuth();
+  const router = useRouter();
+  useEffect(() => {
+    setUser(sessionStorage.getItem('user'));
+  }, []);
   return (
     <Container>
-      <Header header="Reservas" />
+      <Header header={user} />
       <Styles.WrapperContent>
-        <Styles.ReservationContainer>
-          <Styles.ReservationWrapper>
-            <Styles.SearchInput
-              placeholder="input search text"
-              onSearch={(value) => { console.log(value); }}
-            />
-            <Styles.SearchButton>
-              Pesquisar
-            </Styles.SearchButton>
-          </Styles.ReservationWrapper>
-          <Styles.DateContainer>
 
-            <DatePicker
-              disabledDate={disabledDate}
-              onChange={(date, dateStringInitial) => {
-                console.log(dateStringInitial);
-              }}
-            />
-            <DatePicker
-              disabledDate={disabledDate}
-              onChange={(date, dateStringFinal) => {
-                console.log(dateStringFinal);
-              }}
-            />
-
-          </Styles.DateContainer>
-
-          <Styles.SelectContainer>
-            <Select placeholder="Quantidade de Pessoas">
-              <option value="option1">1 pessoa</option>
-              <option value="option2">2 pessoas</option>
-              <option value="option3">3 pessoas</option>
-              <option value="option3">4 pessoas</option>
-              <option value="option3">5 pessoas</option>
-              <option value="option3">6 pessoas</option>
-              <option value="option3">7 pessoas</option>
-              <option value="option3">8 pessoas</option>
-            </Select>
-
-          </Styles.SelectContainer>
-          <Styles.CheckboxContainer>
-            <CheckboxGroup>
-              <Checkbox value="1 solteiro">
-                1 cama solteiro
-              </Checkbox>
-              <Checkbox value="1 casal">
-                1 cama casal
-              </Checkbox>
-              <Checkbox value="2 solteiros">
-                1 cama Beliche
-              </Checkbox>
-              <Checkbox value="2 casais">
-                2 camas casal
-              </Checkbox>
-              <Checkbox value="3 solteiros">
-                3 camas solteiro
-              </Checkbox>
-            </CheckboxGroup>
-          </Styles.CheckboxContainer>
-          <Styles.ButtonContainer>
-            <Styles.ButtonReservation>
-              Selecionar
-            </Styles.ButtonReservation>
-          </Styles.ButtonContainer>
-        </Styles.ReservationContainer>
+        {/* <ReservationForm /> */}
+        <Styles.ChoicesButtons>
+          <Styles.Button
+            value="Alterar"
+            variant="filled"
+            type="submit"
+            backgroundColor="#6558f5"
+            onClick={() => router.push('/GuestAssociation')}
+          >
+            <Styles.ButtonWrapper>
+              <BsFileEarmarkArrowUp size="1.5em" id="buttonIcon" />
+              <h3>
+                Associar Reserva
+              </h3>
+            </Styles.ButtonWrapper>
+          </Styles.Button>
+          <Styles.Button
+            value="Alterar"
+            variant="filled"
+            type="submit"
+            backgroundColor="#6558f5"
+            onClick={() => router.push('/GuestReservation')}
+          >
+            <Styles.ButtonWrapper>
+              <BsFileEarmarkArrowUp size="1.5em" id="buttonIcon" />
+              <h3>
+                Escolher Quarto
+              </h3>
+            </Styles.ButtonWrapper>
+          </Styles.Button>
+        </Styles.ChoicesButtons>
       </Styles.WrapperContent>
     </Container>
   );
