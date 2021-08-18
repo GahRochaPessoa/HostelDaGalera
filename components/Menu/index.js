@@ -33,10 +33,9 @@ export function Menu() {
               onClick={() => { setOpenMenu(!openMenu); }}
             />
           </Styles.MenuHeading>
-          {/* {user === 'Gerente' ?  */}
-          <MenuEmployer />
-          {' '}
-          {/* : <MenuEmployee /> } */}
+          {user === 'Gerente'
+            ? <MenuEmployer />
+            : <MenuEmployee /> }
         </Styles.MenuWrapper>
       ))
   );

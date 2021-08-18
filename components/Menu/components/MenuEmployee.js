@@ -1,71 +1,37 @@
-import Link from 'next/link';
-
+import { useRouter } from 'next/router';
 import { IoMdPersonAdd } from 'react-icons/io';
-import { IoArrowUndoOutline } from 'react-icons/io5';
-/* import { BiCalendar } from 'react-icons/bi';
-import { VscSignOut, VscSignIn } from 'react-icons/vsc';
- */
+import { FaBed } from 'react-icons/fa';
+import { BiCalendar } from 'react-icons/bi';
+/*
+import { GiReceiveMoney } from 'react-icons/gi';
+import { VscSignOut, VscSignIn } from 'react-icons/vsc'; */
+
 import * as Styles from '../styles';
 
 export function MenuEmployee() {
+  const router = useRouter();
   return (
     <>
       <Styles.MenuOptionsContainer>
-        <Link href="/Register">
-          <Styles.MenuOption>
-            <IoMdPersonAdd style={{
-              height: 30,
-              width: 30,
-              marginRight: 10,
-            }}
-            />
-            <p>Hospedes</p>
-          </Styles.MenuOption>
-        </Link>
-        {/* <Link href="/Reservation">
-          <Styles.MenuOption>
-            <BiCalendar style={{
-              height: 30,
-              width: 30,
-              marginRight: 10,
-            }}
-            />
-            <p>Reservas</p>
-          </Styles.MenuOption>
-        </Link>
-        <Link href="/CheckIn">
-          <Styles.MenuOption>
-            <VscSignIn style={{
-              height: 30,
-              width: 30,
-              marginRight: 10,
-            }}
-            />
-            <p>CheckIn</p>
-          </Styles.MenuOption>
-        </Link>
-        <Link href="/CheckOut">
-          <Styles.MenuOption>
-            <VscSignOut style={{
-              height: 30,
-              width: 30,
-              marginRight: 10,
-            }}
-            />
-            <p>CheckOut</p>
-          </Styles.MenuOption>
-        </Link> */}
-        <Link href="/">
-          <Styles.MenuOption>
-            <IoArrowUndoOutline style={{
-              height: 30,
-              width: 30,
-              marginRight: 10,
-            }}
-            />
-            <p>Sair</p>
-          </Styles.MenuOption>
-        </Link>
+
+        <Styles.MenuOption onClick={() => router.push('/Register')}>
+          <IoMdPersonAdd style={{
+            height: 30,
+            width: 30,
+            marginRight: 10,
+          }}
+          />
+          <p>Hospedes</p>
+        </Styles.MenuOption>
+        <Styles.MenuOption onClick={() => router.push('/Reservation')}>
+          <BiCalendar style={{
+            height: 30,
+            width: 30,
+            marginRight: 10,
+          }}
+          />
+          <p>Reservas</p>
+        </Styles.MenuOption>
       </Styles.MenuOptionsContainer>
     </>
   );
